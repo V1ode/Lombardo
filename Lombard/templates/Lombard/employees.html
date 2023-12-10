@@ -1,0 +1,13 @@
+{% extends 'Lombard/includes/frame.html' %}
+
+{% block main_section %}
+
+<div class="main" style="text-align: center">
+    <h1> {{ title }} </h1> <br>
+
+    {% for employee in info %}
+        <a href="{% url 'get_employee' forloop.counter %}" style="color: red; text-decoration: none; font-size: 18px"> {{ employee.First_name }} {{ employee.Last_name }} </a> <br> <br> <br>
+    {% endfor %}
+</div>
+
+{% endblock main_section %}

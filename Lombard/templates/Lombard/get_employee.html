@@ -1,0 +1,13 @@
+{% extends 'Lombard/includes/frame.html' %}
+
+{% block main_section %}
+
+<div class="main" style="text-align: center">
+    <h1> {{ info.First_name }} {{ info.Last_name }} </h1> <br>
+    <p style="font-size: 18px"> Должность: {{ post.content }} </p>
+    <p style="font-size: 18px"> Заработная плата: {{ post.Salary }} </p>
+    <p style="font-size: 18px"> Название отдела: "{{ division.Division_name }}" </p>
+    <p style="font-size: 18px"> Адрес отдела: {{ division.Street_address }} </p>
+</div>
+
+{% endblock main_section %}
