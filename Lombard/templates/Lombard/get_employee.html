@@ -2,12 +2,22 @@
 
 {% block main_section %}
 
-<div class="main" style="text-align: center">
-    <h1> {{ info.First_name }} {{ info.Last_name }} </h1> <br>
-    <p style="font-size: 18px"> Должность: {{ post.content }} </p>
-    <p style="font-size: 18px"> Заработная плата: {{ post.Salary }} </p>
-    <p style="font-size: 18px"> Название отдела: "{{ division.Division_name }}" </p>
-    <p style="font-size: 18px"> Адрес отдела: {{ division.Street_address }} </p>
+<div class="main">
+    <h2 class="info-title"> {{ info.First_name }} {{ info.Last_name }} </h2>
+    <div class="info-container">
+        <div class="info-frame">
+            <p class="get-employees-p"> <span>Должность:</span> {{ post.content }} </p>
+        </div>
+        <div class="info-frame">
+            <p class="get-employees-p"> <span>Заработная плата:</span> {{ post.Salary }} </p>
+        </div>
+        <div class="info-frame">
+            <p class="get-employees-p"> <span>Название отдела:</span> "{{ division.Division_name }}" </p>
+        </div>
+        <div class="info-frame">
+            <p class="get-employees-p"> <span>Адрес отдела:</span> {{ division.Street_address }} </p>
+        </div>
+    </div>
 </div>
 
 {% endblock main_section %}

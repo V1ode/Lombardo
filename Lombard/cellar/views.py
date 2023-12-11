@@ -21,8 +21,9 @@ data = {
         'division': 'division',
 
     },
-    'clients': {
-        'title': 'Клиенты',
+    'contracts': {
+        'title': 'Контракты',
+        'info': Contracts.objects.all()
     },
 }
 
@@ -53,8 +54,14 @@ def get_employee(request, id):
     return render(request, 'Lombard/get_employee.html', context=data['get_employee'])
 
 
-def clients(request):
-    return render(request, 'Lombard/clients.html', context=data['clients'])
+def contracts(request):
+    return render(request, 'Lombard/contracts.html', context=data['contracts'])
+
+
+def get_contract(request, id):
+
+
+    return render(request, 'Lombard/get_contracts.html', context=data['get_contract'])
 
 
 def check(request):

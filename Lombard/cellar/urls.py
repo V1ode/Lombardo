@@ -7,5 +7,6 @@ urlpatterns = [
     path('', index, name='home'),
     path('employees/', employees, name='employees'),
     path('employees/<int:id>/', get_employee, name='get_employee'),
-    path('clients/', clients, name='clients')
+    path('contracts/', contracts, name='contracts'),
+    path('get_contract/<int:id>/', get_contract, name='get_contract')
 ]

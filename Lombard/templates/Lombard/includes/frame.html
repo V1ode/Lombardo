@@ -4,13 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title> {{ title }} </title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'Lombard/css/index.css' %}">
+    <link rel="icon" href="{% static 'Lombard/img/favicon.ico' %}">
+
 </head>
 <body>
-    <p style="text-align: center; font-size: 18px"> <a href="{% url 'home' %}" style="color: blue; text-decoration: none"> Главная </a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    <a href="{% url 'employees' %}" style="color: blue; text-decoration: none"> Сотрудники </a> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    <a href="{% url 'clients' %}" style="color: blue; text-decoration: none"> Клиенты </a></p> <br><br><br>
-  {% block main_section %}
-  {% endblock %}
+
+    <div class="container">
+        <div class="nav">
+            <a href="{% url 'home' %}" class="nav-solo-a"> Главная </a>
+
+            <p>
+                <a href="{% url 'employees' %}"> Сотрудники </a>
+                <a href="{% url 'contracts' %}"> Контракты </a>
+            </p>
+        </div>
+
+      {% block main_section %}
+      {% endblock %}
+    </div>
 </body>
 </html>

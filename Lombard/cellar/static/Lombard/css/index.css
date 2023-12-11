@@ -1,0 +1,166 @@
+body {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav {
+    width: 80%;
+
+    display: flex;
+    justify-content: space-between;
+    background: #ccc9c47a;
+}
+
+.nav p {
+    font-size: 20px;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav a {
+    font-size: 20px;
+    color: grey;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+}
+
+.nav p a {
+    margin-right: 30px;
+}
+
+.nav-solo-a {
+    margin-left: 70px;
+}
+
+.main {
+    width: 80%;
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    background: #80808014;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.title, .section-title, .info-title {
+    font-size: 35px;
+    margin-top: 75px;
+    font-family: "Inter", sans-serif;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 27px;
+    color: #535353;
+
+    margin-bottom: 50px;
+}
+
+.title span {
+    color: green;
+}
+
+.index-p {
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+
+    margin-left: 110px;
+}
+
+.index-p span {
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.frame-container {
+    height: 25%;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+
+    margin-left: 140px;
+    margin-right: 50px;
+}
+
+.name-frame, .info-frame, .contract-frame {
+    width: fit-content;
+    height: fit-content;
+    background: #c99474;
+    border: solid 3px #53301c;
+    border-radius: 13px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.employees-a, .contracts-a {
+    font-size: 20px;
+    font-family: "Inter", sans-serif;
+    color: #c14c05fa;
+    text-decoration: none;
+
+    padding: 30px;
+    display: flex;
+}
+
+.info-title {
+    font-size: 27px;
+    color: #f76900;
+
+    margin-bottom: 100px;
+}
+
+.info-container {
+    height: 25%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    margin-left: 140px;
+    margin-right: 50px;
+}
+
+.info-frame {
+    background: #97887e;
+    border: solid 3px #534943;
+}
+
+.get-employees-p {
+    width: 355px;
+    font-size: 20px;
+    font-family: "Inter", sans-serif;
+    color: #b9b4b1;
+
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    padding: 30px;
+    display: flex;
+    gap: 5px;
+}
+
+.get-employees-p span {
+    font-size: 21px;
+    color: #494645;
+}
+
+.contract-frame {
+    background: #fff900;
+    border: solid 3px #d7c703;
+}
+
+.contracts-a {
+    color: #ffb300;
+}
