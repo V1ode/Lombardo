@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import urls
 
 urlpatterns = [
     path('', index, name='home'),
@@ -20,6 +21,4 @@ urlpatterns = [
     path('tools/add_form/add_contract/', add_contract, name='add_contract'),
     path('tools/pledged_items/', pledged_items, name='pledged_items'),
     path('tools/pledged_items/search_item/<slug:item>/', search_item, name='search_item'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/login/', login, name='login'),
 ]

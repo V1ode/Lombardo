@@ -21,7 +21,7 @@ from cellar.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('cellar.urls')),
-    path('users/', include('cellar.urls'))
+    path('accounts/', include('allauth.urls')),
 ]
 
 handler302 = redirect

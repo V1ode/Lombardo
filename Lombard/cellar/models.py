@@ -1,10 +1,8 @@
 from django.contrib import admin
+from django.contrib.auth import authenticate
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import AbstractUser
 
-
-class User(AbstractUser):
-    pass
 
 class Posts(models.Model):
     Post_id = models.PositiveIntegerField(primary_key=True)
