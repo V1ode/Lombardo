@@ -17,12 +17,6 @@
                 <a href="{% url 'employees' %}"> Сотрудники </a>
                 <a href="{% url 'contracts' %}"> Контракты </a>
                 <a href="{% url 'tools' %}"> Инструменты </a>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'account_logout' %}">Выйти ({{ user.username }})</a>
-                {% else %}
-                    <a href="{% url 'account_login' %}">Вход</a>
-                    <a href="{% url 'account_signup' %}">Регистрация</a>
-                {% endif %}
             </p>
         </div>
 
