@@ -1,0 +1,69 @@
+{% extends 'Lombard/includes/frame.html' %}
+{% load static %}
+
+{% block main_section %}
+
+
+{% if item == 'car' %}
+<div class="main">
+    <h2 class="section-title car-title"> Машина </h2>
+
+    <div class="img-flex">
+        <div class="container img-size">
+            <div class="img-container">
+                <img src="{% static 'Lombard/img/car.jpg' %}">
+            </div>
+        </div>
+    </div>
+</div>
+{% elif item == 'diamond' %}
+<div class="main">
+    <h2 class="section-title diamond-title"> Бриллиант </h2>
+
+    <div class="img-flex diamond-flex">
+        <div class="container img-size">
+            <div class="img-container">
+                <img src="{% static 'Lombard/img/diamond.jpeg' %}">
+            </div>
+        </div>
+    </div>
+</div>
+{% elif item == 'gradebook' %}
+<div class="main">
+    <h2 class="section-title gradebook-title"> Зачетка </h2>
+
+    <div class="img-flex">
+        <div class="container img-size">
+            <div class="img-container">
+                <img src="{% static 'Lombard/img/gradebook.jpg' %}">
+            </div>
+        </div>
+    </div>
+</div>
+{% elif item == 'paper' %}
+<div class="main">
+    <h2 class="section-title paper-title"> Пачка бумаги </h2>
+
+    <div class="img-flex">
+        <div class="container img-size">
+            <div class="img-container">
+                <img src="{% static 'Lombard/img/paper.png' %}">
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="main">
+    <h2 class="error-title"> Ошибка </h2>
+
+    <div class="error-container">
+        <div class="info-frame error-frame">
+                <p class="get-contract-p error-p"> Такой вещи нет на складе </p>
+        </div>
+    </div>
+
+</div>
+{% endif %}
+
+
+{% endblock main_section %}

@@ -1,0 +1,16 @@
+{% extends 'Lombard/includes/frame.html' %}
+
+{% block main_section %}
+
+<div class="main">
+    <h2 class="section-title"> {{ title }} </h2>
+
+    <div class="frame-container form-container">
+        <form method="POST">{% csrf_token %}
+            {{ func }}
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+{% endblock main_section %}

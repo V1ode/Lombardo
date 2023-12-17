@@ -3,7 +3,51 @@
 {% block main_section %}
 
 <div class="main">
-    <h2 class="section-title"> Клиенты </h2>
+    <h2 class="section-title get-contract-title"> {{ title }} </h2>
+
+    <div class="info-container">
+        <div class="info-frame">
+            <p class="get-contract-p"> <span>Дата заключения контракта:</span> {{ info.Sign_date }} </p>
+        </div>
+        <div class="info-frame">
+            <p class="get-contract-p"> <span>Клиент:</span> {{ client.Last_name }} {{ client.First_name }} </p>
+        </div>
+        <div class="info-frame">
+            <p class="get-contract-p"> <span>Сотрудник:</span> {{ employee.Last_name }} {{ employee.First_name }} </p>
+        </div>
+        {% for item in items %}
+            {% if pledged_items_list.Pledged_item_name == item.Pledged_item_name %}
+                {% for key, value in translation.items %}
+                    {% if pledged_items_list.Pledged_item_name == key %}
+                        {% with adress=value %}
+                            <div class="info-frame">
+                                <p class="get-contract-p"> <span>Заложенная вещь:</span>
+                                <a href="{% url 'search_item' adress %}" class="get-contract-p get-contract-a"> {{ item.Pledged_item_name }} </a></p>
+                            </div>
+                        {% endwith %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        {% if category.Refund_possibility == True %}
+        <div class="true-frame">
+            <p class="true-p"> <span>Возможность возврата:</span> Есть </p>
+        </div>
+        {% elif category.Refund_possibility == False %}
+        <div class="false-frame">
+            <p class="false-p"> <span>Возможность возврата:</span> Нет </p>
+        </div>
+        {% endif %}
+        <div class="info-frame contract-frame">
+            <p class="get-contract-p contracts-a"> <span>К оплате:</span> {{ info.Bail }} рублей</p>
+        </div>
+        <div class="info-frame">
+            <p class="get-contract-p"> <span>Проценты:</span> {{ info.Commision_fee }} рублей</p>
+        </div>
+        <div class="info-frame">
+            <p class="get-contract-p"> <span>Дата истечения контракта:</span> {{ info.Expiration_date }} </p>
+        </div>
+    </div>
 </div>
 
 {% endblock main_section %}

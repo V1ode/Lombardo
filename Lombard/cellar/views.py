@@ -1,9 +1,12 @@
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseNotFound, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseServerError, \
     HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from cellar.models import *
+from .forms import *
 
 
 data = {
@@ -23,9 +26,92 @@ data = {
     },
     'contracts': {
         'title': 'Контракты',
-        'info': Contracts.objects.all()
+        'info': Contracts.objects.all(),
+    },
+    'get_contract': {
+        'title': 'Контракт №1',
+        'info': 'info',
+        'employee': Employees.objects.get(Employee_id=1),
+        'pledged_items_list': Pledged_items_list.objects.get(Pledged_items_list_id=1),
+        'category': 'category',
+        'client': Clients.objects.get(Client_id=1),
+        'items': Pledged_items_list.objects.all(),
+        'translation' : {
+            'Машина': 'car',
+            'Алмаз': 'diamond',
+            'Зачетка': 'gradebook',
+            'Пачка бумаги': 'paper',
+        },
+    },
+    'tools': {
+        'title': 'Инструменты',
+    },
+    'pledged_items': {
+        'title': 'Заложенные вещей',
+        'items': Pledged_items_list.objects.all(),
+        'find': [
+            'Машина',
+            'Алмаз',
+            'Зачетка',
+            'Пачка бумаги',
+        ],
+        'translation' : {
+            'Машина': 'car',
+            'Алмаз': 'diamond',
+            'Зачетка': 'gradebook',
+            'Пачка бумаги': 'paper',
+        },
+    },
+    'search_item': {
+        'title': 'Поиск вещи',
+        'item': 'item',
+    },
+    'add_form': {
+        'title': 'Добавить форму',
+    },
+    'add_post': {
+        'title': 'Добавить должность',
+        'func': 'func',
+    },
+    'add_division': {
+        'title': 'Добавить подразделение',
+        'func': 'func',
+    },
+    'add_client': {
+        'title': 'Добавить клиента',
+        'func': 'func',
+    },
+    'add_employee': {
+        'title': 'Добавить сотрудника',
+        'func': 'func',
+    },
+    'add_category': {
+        'title': 'Добавить категорию',
+        'func': 'func',
+    },
+    'add_pledged_items_list': {
+        'title': 'Добавить заложенную вещь',
+        'func': 'func',
+    },
+    'add_contract': {
+        'title': 'Добавить контракт',
+        'func': 'func',
     },
 }
+
+
+# class LoginUser(DataMixin, LoginView):
+#     form_class = AuthenticationForm
+#     template_name = 'Lombard/login.html'
+#
+#     def get_context_data(self, *, object_list=None, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         c_def = self.get_context_data(title="Авторизация")
+#         return dict(list(context.items()) + list(c_def.items))
+
+
+def login(request):
+    return render(request, 'Lombard/login.html')
 
 
 def index(request):
@@ -38,8 +124,8 @@ def employees(request):
 
 def get_employee(request, id):
     if not (id > 0 and id < 8): # ?When id is negative its not working
-        return HttpResponse('<div style="height: 18vh; background: #ffc"> <br><br> <h1 style="text-align: center"> Сотрудника с таким id не существует </h1> </div>')
-
+        raise ValueError('Сотрудника с таким именем не существует')
+        # return HttpResponse('<div style="height: 18vh; background: #ffc"> <br><br> <h1 style="text-align: center"> Сотрудника с таким id не существует </h1> </div>')
 
     info = Employees.objects.get(Employee_id=id)
     data['get_employee']['info'] = info
@@ -59,13 +145,134 @@ def contracts(request):
 
 
 def get_contract(request, id):
+    if not (id > 0 and id < 5): # ?When id is negative its not working
+        raise ValueError('Сотрудника с таким именем не существует')
+
+    data['get_contract']['title'] = f"Контракт №{id}"
+
+    info = Contracts.objects.get(Contract_id=id)
+    data['get_contract']['info'] = info
+
+    employee = info.Employee_id
+    data['get_contract']['employee'] = employee
+
+    pledged_items_list = info.Pledged_items_list_id
+    data['get_contract']['pledged_items_list'] = pledged_items_list
+
+    category = pledged_items_list.Category_id
+    data['get_contract']['category'] = category
+
+    client = info.Client_id
+    data['get_contract']['client'] = client
+
+    return render(request, 'Lombard/get_contract.html', context=data['get_contract'])
 
 
-    return render(request, 'Lombard/get_contracts.html', context=data['get_contract'])
+def tools(request):
+    return render(request, 'Lombard/tools.html', context=data['tools'])
+
+def add_form(request):
+    return render(request, 'Lombard/add_form.html', context=data['add_form'])
 
 
-def check(request):
-    return
+def add_post(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('tools/add_form/', pk=post.pk)
+    else:
+        data['add_post']['func'] = PostForm()
+    return render(request, 'Lombard/add_post.html', context=data['add_post'])
+
+
+def add_division(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('tools/add_form/', pk=post.pk)
+    else:
+        data['add_division']['func'] = DivisionForm()
+    return render(request, 'Lombard/add_division.html', context=data['add_division'])
+
+
+def add_client(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('tools/add_form/', pk=post.pk)
+    else:
+        data['add_client']['func'] = ClientForm()
+    return render(request, 'Lombard/add_client.html', context=data['add_client'])
+
+
+def add_employee(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('tools/add_form/', pk=post.pk)
+    else:
+        data['add_employee']['func'] = EmployeeForm()
+    return render(request, 'Lombard/add_employee.html', context=data['add_employee'])
+
+
+def add_category(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('tools/add_form/', pk=post.pk)
+    else:
+        data['add_category']['func'] = CategoryForm()
+    return render(request, 'Lombard/add_category.html', context=data['add_category'])
+
+
+def add_pledged_items_list(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('tools/add_form/', pk=post.pk)
+    else:
+        data['add_pledged_items_list']['func'] = PledgedItemsListForm()
+    return render(request, 'Lombard/add_pledged_items_list.html', context=data['add_pledged_items_list'])
+
+
+def add_contract(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('tools/add_form/', pk=post.pk)
+    else:
+        data['add_contract']['func'] = ContractForm()
+    return render(request, 'Lombard/add_contract.html', context=data['add_contract'])
+
+
+def pledged_items(request):
+    return render(request, 'Lombard/pledged_items.html', context=data['pledged_items'])
+
+
+def search_item(request, item):
+    data['search_item']['item'] = item
+    return render(request, 'Lombard/search_item.html', context=data['search_item'])
 
 
 def bad_request(request, exception):

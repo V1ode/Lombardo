@@ -1,0 +1,27 @@
+{% extends 'Lombard/includes/frame.html' %}
+
+{% block main_section %}
+
+<div class="main">
+    <h2 class="section-title pledged-title"> Заложенные вещи </h2>
+
+    <div class="frame-container">
+    {% for item in items %}
+        {% for name in find %}
+            {% if name == item.Pledged_item_name %}
+                {% for key, value in translation.items %}
+                    {% if name == key %}
+                        {% with adress=value %}
+                            <div class="contract-frame pledged-frame">
+                                <a href="{% url 'search_item' adress %}" class="contracts-a pledged-a"> {{ item.Pledged_item_name }} </a> <br> <br> <br>
+                            </div>
+                        {% endwith %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock main_section %}

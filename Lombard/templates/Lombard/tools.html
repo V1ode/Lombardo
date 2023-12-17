@@ -1,0 +1,18 @@
+{% extends 'Lombard/includes/frame.html' %}
+
+{% block main_section %}
+
+<div class="main">
+    <h2 class="section-title tools-title"> {{ title }} </h2> <br>
+
+    <div class="frame-container">
+        <div class="contract-frame tools-frame">
+            <a href="{% url 'add_form' %}" class="tools-a"> Добавить форму </a>
+        </div>
+        <div class="contract-frame tools-frame">
+            <a href="{% url 'pledged_items' %}" class="tools-a"> Заложенные вещи </a>
+        </div>
+    </div>
+</div>
+
+{% endblock main_section %}

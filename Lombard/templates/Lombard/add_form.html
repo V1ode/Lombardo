@@ -1,0 +1,33 @@
+{% extends 'Lombard/includes/frame.html' %}
+
+{% block main_section %}
+
+<div class="main">
+    <h2 class="section-title form-title">  Добавление формы </h2>
+
+    <div class="frame-container container-margin">
+        <div class="info-frame form-frame">
+            <a href="{% url 'add_post' %}" class="tools-a form-a"> Должность </a>
+        </div>
+        <div class="info-frame form-frame">
+            <a href="{% url 'add_division' %}" class="tools-a form-a"> Подразделение </a>
+        </div>
+        <div class="info-frame form-frame">
+            <a href="{% url 'add_client' %}" class="tools-a form-a"> Клиент </a>
+        </div>
+        <div class="info-frame form-frame">
+            <a href="{% url 'add_employee' %}" class="tools-a form-a"> Сотрудник </a>
+        </div>
+        <div class="info-frame form-frame">
+            <a href="{% url 'add_category' %}" class="tools-a form-a"> Категория </a>
+        </div>
+        <div class="info-frame form-frame">
+            <a href="{% url 'add_pledged_items_list' %}" class="tools-a form-a"> Заложенная вещь </a>
+        </div>
+        <div class="info-frame form-frame">
+            <a href="{% url 'add_contract' %}" class="tools-a form-a"> Контракт </a>
+        </div>
+    </div>
+</div>
+
+{% endblock main_section %}

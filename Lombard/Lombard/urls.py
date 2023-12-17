@@ -20,7 +20,8 @@ from cellar.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('cellar.urls'))
+    path('', include('cellar.urls')),
+    path('users/', include('cellar.urls'))
 ]
 
 handler302 = redirect
@@ -32,5 +33,6 @@ handler403 = forbidden
 handler404 = page_not_found
 
 handler500 = server_down
+
 
 # handler302 = redirect
