@@ -17,16 +17,23 @@
         </div>
         {% for item in items %}
             {% if pledged_items_list.Pledged_item_name == item.Pledged_item_name %}
-                {% for key, value in translation.items %}
-                    {% if pledged_items_list.Pledged_item_name == key %}
-                        {% with adress=value %}
-                            <div class="info-frame">
-                                <p class="get-contract-p"> <span>Заложенная вещь:</span>
-                                <a href="{% url 'search_item' adress %}" class="get-contract-p get-contract-a"> {{ item.Pledged_item_name }} </a></p>
-                            </div>
-                        {% endwith %}
-                    {% endif %}
-                {% endfor %}
+                {% if pledged_items_list.Pledged_item_name in translation.keys %}
+                    {% for key, value in translation.items %}
+                        {% if pledged_items_list.Pledged_item_name == key %}
+                            {% with adress=value %}
+                                <div class="info-frame">
+                                    <p class="get-contract-p"> <span>Заложенная вещь:</span>
+                                    <a href="{% url 'search_item' adress %}" class="get-contract-p get-contract-a"> {{ item.Pledged_item_name }} </a></p>
+                                </div>
+                            {% endwith %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="info-frame">
+                        <p class="get-contract-p"> <span>Заложенная вещь:</span>
+                                                    {{ item.Pledged_item_name }} </p>
+                    </div>
+                {% endif %}
             {% endif %}
         {% endfor %}
         {% if category.Refund_possibility == True %}
