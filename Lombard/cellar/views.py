@@ -100,16 +100,24 @@ data = {
 }
 
 
+def login(request):
+    return render(request, 'Lombard/login.html')
+
+
 def index(request):
     return render(request, 'Lombard/index.html', context=data['index'])
 
 
 def employees(request):
+    data['employees']['info'] = Employees.objects.all()
+
     return render(request, 'Lombard/employees.html', context=data['employees'])
 
 
 def get_employee(request, id):
-    if not (id > 0 and id < 8): # ?When id is negative its not working
+    max_id = Employees.objects.all().count()
+
+    if not (id > 0 and id <= max_id): # ?When id is negative its not working
         raise ValueError('Сотрудника с таким именем не существует')
         # return HttpResponse('<div style="height: 18vh; background: #ffc"> <br><br> <h1 style="text-align: center"> Сотрудника с таким id не существует </h1> </div>')
 
@@ -127,12 +135,16 @@ def get_employee(request, id):
 
 
 def contracts(request):
+    data['contracts']['info'] = Contracts.objects.all()
+
     return render(request, 'Lombard/contracts.html', context=data['contracts'])
 
 
 def get_contract(request, id):
-    if not (id > 0 and id < 5): # ?When id is negative its not working
-        raise ValueError('Сотрудника с таким именем не существует')
+    max_id = Contracts.objects.all().count()
+
+    if not (id > 0 and id <= max_id):
+        raise ValueError('Такого контракта не существует')
 
     data['get_contract']['title'] = f"Контракт №{id}"
 
@@ -168,7 +180,6 @@ def add_post(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
-            return redirect('tools/add_form/', pk=post.pk)
     else:
         data['add_post']['func'] = PostForm()
     return render(request, 'Lombard/add_post.html', context=data['add_post'])
@@ -176,12 +187,11 @@ def add_post(request):
 
 def add_division(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = DivisionForm(request.POST)
 
         if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            return redirect('tools/add_form/', pk=post.pk)
+            division = form.save(commit=False)
+            division.save()
     else:
         data['add_division']['func'] = DivisionForm()
     return render(request, 'Lombard/add_division.html', context=data['add_division'])
@@ -189,12 +199,11 @@ def add_division(request):
 
 def add_client(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = ClientForm(request.POST)
 
         if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            return redirect('tools/add_form/', pk=post.pk)
+            client = form.save(commit=False)
+            client.save()
     else:
         data['add_client']['func'] = ClientForm()
     return render(request, 'Lombard/add_client.html', context=data['add_client'])
@@ -202,12 +211,16 @@ def add_client(request):
 
 def add_employee(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = EmployeeForm(request.POST)
 
         if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            return redirect('tools/add_form/', pk=post.pk)
+            if int(request.POST['Employee_id']) == int(Employees.objects.all().count()+1):
+                employee = form.save(commit=False)
+                employee.save()
+            else:
+                raise ValueError(f"Указан неверный ИД")
+        else:
+            raise ValueError('Данные введены неверно')
     else:
         data['add_employee']['func'] = EmployeeForm()
     return render(request, 'Lombard/add_employee.html', context=data['add_employee'])
@@ -215,12 +228,11 @@ def add_employee(request):
 
 def add_category(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = CategoryForm(request.POST)
 
         if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            return redirect('tools/add_form/', pk=post.pk)
+            category = form.save(commit=False)
+            category.save()
     else:
         data['add_category']['func'] = CategoryForm()
     return render(request, 'Lombard/add_category.html', context=data['add_category'])
@@ -228,12 +240,11 @@ def add_category(request):
 
 def add_pledged_items_list(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PledgedItemsListForm(request.POST)
 
         if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            return redirect('tools/add_form/', pk=post.pk)
+            list = form.save(commit=False)
+            list.save()
     else:
         data['add_pledged_items_list']['func'] = PledgedItemsListForm()
     return render(request, 'Lombard/add_pledged_items_list.html', context=data['add_pledged_items_list'])
@@ -241,12 +252,16 @@ def add_pledged_items_list(request):
 
 def add_contract(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = ContractForm(request.POST)
 
         if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            return redirect('tools/add_form/', pk=post.pk)
+            if int(request.POST['Contract_id']) == int(Contracts.objects.all().count()+1):
+                contract = form.save(commit=False)
+                contract.save()
+            else:
+                raise ValueError(f"Указан неверный ИД")
+        else:
+            raise ValueError('Указана неверная дата в одном из полей')
     else:
         data['add_contract']['func'] = ContractForm()
     return render(request, 'Lombard/add_contract.html', context=data['add_contract'])
